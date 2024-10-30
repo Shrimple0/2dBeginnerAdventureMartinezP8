@@ -4,22 +4,28 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
 {
+    Rigidbody2D rigidbody2d;
+    float horizontal;
+    float vertical;
+
     // Start is called before the first frame update
     void Start()
     {
-       //QualitySettings.vSyncCount = 0;
+      rigidbody2d = GetComponent<Rigidbody2D>();
+        //QualitySettings.vSyncCount = 0;
         //Application.targetFrameRate = 10;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        horizontal = Input.GetAxis("Horizontal");
+        vertical = Input.GetAxis("Vertical");
 
-        Vector2 position = transform.position;
+        Vector2 position = rigidbody2d.position;
         position.x = position.x + 5.0f * horizontal * Time.deltaTime;
         position.y = position.y + 5.0f * vertical * Time.deltaTime;
-        transform.position = position;
+
+       rigidbody2d.MovePosition(position);
     }
 }
