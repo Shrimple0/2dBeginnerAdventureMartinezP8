@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
 {
-    public float speed = 50f;
+    public float speed = 15f;
     public int maxHealth = 5;
     public int health { get { return currentHealth; } }
     int currentHealth;
