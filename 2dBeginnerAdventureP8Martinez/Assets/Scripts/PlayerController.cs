@@ -5,9 +5,13 @@ using UnityEngine;
 public class NewBehaviourScript : MonoBehaviour
 {
     public float speed = 15f;
-    public int maxHealth = 5;
+
     public int health { get { return currentHealth; } }
+    public float timeInvincible = 2;
     int currentHealth;
+
+    bool inInvincible;
+    float inInvincibleTimer;
     
     Rigidbody2D rigidbody2d;
     float horizontal;
@@ -31,6 +35,15 @@ public class NewBehaviourScript : MonoBehaviour
     {
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
+
+        if(isInvincible)
+        {
+            inInvincibleTimer = Time.deltaTime;
+            if(inInvincibleTimer < 0 )
+            {
+                isInvincible = false;
+            }
+        }
 
         Vector2 move = new Vector2(horizontal, vertical);
         if (!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
@@ -56,6 +69,15 @@ public class NewBehaviourScript : MonoBehaviour
     public void ChangeHealth(int amount)
     {
         animator.SetTrigger("Hit");
+        if(amount < 0)
+        {
+            if(isInvincible)
+            {
+                return;
+            }
+            isInvincible = true;
+            invincibleTimer = timeInvincible;
+        }
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         Debug.Log(currentHealth + "/" + maxHealth);
     }
