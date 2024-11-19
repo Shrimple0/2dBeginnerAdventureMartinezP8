@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float speed = 15f;
 
     public int health { get { return currentHealth; } }
     public float timeInvincible = 2;
-    int currentHealth;
+    public int maxHealth = 5;
+    public int currentHealth;
 
     bool inInvincible;
     float inInvincibleTimer;
@@ -19,6 +20,8 @@ public class NewBehaviourScript : MonoBehaviour
 
     Animator animator;
     Vector2 lookDirection = new Vector2(1, 0);
+    private bool isInvincible;
+    private float invincibleTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -64,10 +67,12 @@ public class NewBehaviourScript : MonoBehaviour
         position.x = position.x + speed * horizontal * Time.deltaTime;
         position.y = position.y + speed * vertical * Time.deltaTime;
 
-       rigidbody2d.MovePosition(position);
+        transform.position = position;
+        rigidbody2d.MovePosition(position);
     }
     public void ChangeHealth(int amount)
     {
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         animator.SetTrigger("Hit");
         if(amount < 0)
         {
