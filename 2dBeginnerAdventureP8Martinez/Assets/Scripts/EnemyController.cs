@@ -23,7 +23,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer -= Time.deltatime;
+        timer -= Time.deltaTime;
         if (timer < 0)
         {
             direction = -direction;
@@ -35,17 +35,17 @@ public class EnemyController : MonoBehaviour
         Vector2 position = rigidbody2d.position;
             if(vertical)
         {
-            position.y = position.y + Time.deltatime * speed * direction;
+            position.y = position.y + Time.deltaTime * speed * direction;
         }
             else
         {
             position.x = position.x + Time.deltaTime * speed * direction;
         }
-        position.x = position.x + Time.deltatime * speed;
+        position.x = position.x + Time.deltaTime * speed;
 
         rigidbody2d.MovePosition(position);
     }
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D other)
     {
         PlayerController player = other.gameObject.GetComponent<PlayerController>();
             if(player != null)
