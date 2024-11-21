@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 10f;
+    public float speed = 15f;
 
     public int health { get { return currentHealth; } }
     public float timeInvincible = 2;
     public int maxHealth = 5;
-    public GameObject projectilePrefab;
     public int currentHealth;
 
     bool inInvincible;
@@ -27,9 +26,9 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-      animator = GetComponent<Animator>();
-        rigidbody2d = GetComponent<Rigidbody2D>();
+      rigidbody2d = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
+        animator = GetComponent<Animator>();
         //QualitySettings.vSyncCount = 0;
         //Application.targetFrameRate = 10;
     }
@@ -55,7 +54,9 @@ public class PlayerController : MonoBehaviour
             lookDirection.Set(move.x, move.y);
             lookDirection.Normalize();
         }
-       
+        animator.SetFloat("Look X", lookDirection.x);
+        animator.SetFloat("Look Y", lookDirection.y);
+        animator.SetFloat("Speed", move.magnitude);
 
      
     }
@@ -63,8 +64,6 @@ public class PlayerController : MonoBehaviour
         void FixedUpdate()
         { 
         Vector2 position = rigidbody2d.position;
-        animator.SetFloat("Move X", 0);
-        animator.SetFloat("Move Y", 0);
         position.x = position.x + speed * horizontal * Time.deltaTime;
         position.y = position.y + speed * vertical * Time.deltaTime;
 
