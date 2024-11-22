@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 15f;
+    public float speed = 10f;
 
     public int health { get { return currentHealth; } }
     public float timeInvincible = 2;
