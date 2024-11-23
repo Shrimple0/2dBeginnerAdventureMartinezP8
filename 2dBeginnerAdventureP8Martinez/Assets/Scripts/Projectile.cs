@@ -5,6 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     Rigidbody2D rigidbody2d;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -14,7 +15,7 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.magnitude > 100.0f)
+        if (transform.position.magnitude > 1000.0f)
         {
             Destroy(gameObject);
         }
@@ -25,14 +26,14 @@ public class Projectile : MonoBehaviour
         rigidbody2d.AddForce(direction * force);
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
         EnemyController e = other.collider.GetComponent<EnemyController>();
         if (e != null)
         {
             e.Fix();
         }
-      
+
         Destroy(gameObject);
     }
 }
